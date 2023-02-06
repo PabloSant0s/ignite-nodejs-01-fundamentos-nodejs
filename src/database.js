@@ -14,5 +14,11 @@ export class Database {
     fs.writeFile(databasePath, JSON.stringify(this.#database))
   }
 
+  insert(table, data) {
+    this.#database[table] ? this.#database[table].push(data) : this.#database[table] = [data]
+    this.#persist()
+    return data
+  }
+
 
 }
