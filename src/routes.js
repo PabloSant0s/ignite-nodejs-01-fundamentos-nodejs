@@ -36,5 +36,18 @@ export const routes = [
       return res.writeHead(201).end(JSON.stringify(task))
 
     }
+  },
+  {
+    method: 'GET',
+    path: buildRoutePath('/tasks'),
+    handler: (req, res) => {
+
+      const { title, description } = req.query
+
+
+      const tasks = database.select('tasks', title, description)
+      return res.end(JSON.stringify(tasks))
+
+    }
   }
 ]
