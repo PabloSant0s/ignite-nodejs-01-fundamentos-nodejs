@@ -49,5 +49,35 @@ export const routes = [
       return res.end(JSON.stringify(tasks))
 
     }
-  }
+  },
+  {
+    method: 'PUT',
+    path: buildRoutePath('/tasks/:id'),
+    handler: (req, res) => {
+      const { id } = req.params
+      const { title, description } = req.body
+
+      try {
+        const task = database.update('tasks', id, { title, description })
+        return res.writeHead(200).end(JSON.stringify(task))
+      } catch (error) {
+        if (error instanceof Error) {
+          return res.writeHead(404).end(JSON.stringify({
+            error: {
+              default: error.message
+            }
+          }))
+        }
+        return res.writeHead(500).end(JSON.stringify({
+          error: {
+            default: 'Internal Server Error'
+          }
+        }))
+      }
+
+
+
+
+    }
+  },
 ]

@@ -28,7 +28,7 @@ export class Task {
 
   update(title, description) {
     if (title || description) {
-      if (title) thistitle = title
+      if (title) this.title = title
       if (description) this.description = description
       this.updated_at = new Date()
     }
