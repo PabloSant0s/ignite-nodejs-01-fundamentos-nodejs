@@ -76,6 +76,25 @@ export class Database {
     return task
   }
 
+  completeTask(table, id) {
+    const item = this.selectIndexById(table, id)
+    if (item === null) {
+      throw new Error('Id Inválido')
+    }
+
+    const task = new Task()
+
+    task.factory(this.#database[table][item])
+
+    task.completed()
+
+    this.#database[table][item] = task
+
+    this.#persist()
+
+    return task
+  }
+
   delete(table, id) {
     const indexItem = this.selectIndexById(table, id)
 

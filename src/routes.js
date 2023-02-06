@@ -101,4 +101,29 @@ export const routes = [
       }
     }
   },
+  {
+    method: 'PATCH',
+    path: buildRoutePath('/tasks/:id/complete'),
+    handler: (req, res) => {
+      const { id } = req.params
+
+      try {
+        const task = database.completeTask('tasks', id)
+        return res.writeHead(200).end(JSON.stringify(task))
+      } catch (error) {
+        if (error instanceof Error) {
+          return res.writeHead(404).end(JSON.stringify({
+            error: {
+              default: error.message
+            }
+          }))
+        }
+        return res.writeHead(500).end(JSON.stringify({
+          error: {
+            default: 'Internal Server Error'
+          }
+        }))
+      }
+    }
+  },
 ]
