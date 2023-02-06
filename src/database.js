@@ -76,5 +76,17 @@ export class Database {
     return task
   }
 
+  delete(table, id) {
+    const indexItem = this.selectIndexById(table, id)
+
+    if (indexItem === null) {
+      throw new Error('Id Inválido')
+    }
+
+    this.#database[table].splice(indexItem, 1)
+
+    this.#persist()
+  }
+
 
 }
