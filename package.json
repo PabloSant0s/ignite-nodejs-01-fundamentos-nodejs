@@ -6,5 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "csv-parse": "^5.3.4"
   }
 }

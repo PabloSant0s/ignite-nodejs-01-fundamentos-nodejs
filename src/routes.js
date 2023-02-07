@@ -1,6 +1,7 @@
 import { Database } from './database.js'
 import { Task } from './models/Task.js'
 import { buildRoutePath } from './utils/build-route-path.js'
+import { execute } from './utils/csv/import-csv.js'
 
 const database = new Database()
 export const routes = [
@@ -126,4 +127,18 @@ export const routes = [
       }
     }
   },
+
+  {
+    method: 'POST',
+    path: buildRoutePath('/tasks/import'),
+    handler: async (req, res) => {
+      try {
+        await execute()
+        return res.writeHead(204).end()
+      } catch (error) {
+        return res.writeHead(500).end()
+      }
+
+    }
+  }
 ]
